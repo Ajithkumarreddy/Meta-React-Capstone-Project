@@ -1,0 +1,33 @@
+.homepage-container {
+    padding: 0 32px;
+}
+
+.homepage-hero-section {
+    display: flex;
+    flex-direction: row;
+    height: 420px;
+    padding: 20px 120px;
+}
+
+.homepage-hero-text {
+    width: 70%;
+}
+
+.homepage-hero-img {
+    width: 30%;
+}
+
+.homepage-about-section {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 120px;
+}
+
+.homepage-about-img {
+    width: 30%;
+}
+
+.homepage-about-text {
+    width: 70%;
+    padding-left: 32px;
+}

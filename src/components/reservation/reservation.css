@@ -1,0 +1,27 @@
+.reservation-container {
+    padding: 12px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reservation-form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 4px;
+}
+
+.datepicker,
+.timepicker,
+.guests,
+.occasion {
+    height: 42px;
+    width: 320px;
+    padding: 8px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}

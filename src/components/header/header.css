@@ -1,0 +1,23 @@
+.header-container {
+    height: 80px;
+    padding: 12px 32px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #495E57;
+}
+
+.header-nav-ul {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header-nav-href {
+    text-decoration: none;
+}
