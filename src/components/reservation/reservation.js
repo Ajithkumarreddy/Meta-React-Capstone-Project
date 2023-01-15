@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./reservation.css";
 import Button from "@mui/material/Button";
 
@@ -8,15 +8,56 @@ function Reservation() {
   const [persons, setPersons] = useState("");
   const [occasion, setOcassion] = useState("");
 
-  const availableTimes = [
-    { id: 1, value: "11:00" },
-    { id: 2, value: "12:00" },
-    { id: 3, value: "13:00" },
-  ];
+  const initializeTimes = ["11:00", "12:00", "13:00"];
 
-  useEffect(() => {
-    console.log(fetchAPI("12/12/2022"));
-  });
+  const [availableTimes, setAvailableTimes] = useState(initializeTimes);
+
+  const seededRandom = function (seed) {
+    var m = 2 ** 35 - 31;
+    var a = 185852;
+    var s = seed % m;
+    return function () {
+      return (s = (s * a) % m) / m;
+    };
+  };
+
+  const fetchAPI = function (date) {
+    let result = [];
+    const newDate = new Date(date);
+    let random = seededRandom(newDate.getDate());
+
+    for (let i = 17; i <= 23; i++) {
+      if (random() < 0.5) {
+        result.push(i + ":00");
+      }
+      if (random() < 0.5) {
+        result.push(i + ":30");
+      }
+    }
+    return result;
+  };
+
+  const submitAPI = function (formData) {
+    return true;
+  };
+
+  const handleDateChange = (value) => {
+    setAvailableTimes(fetchAPI(value));
+    console.log(fetchAPI(value));
+  };
+
+  const handleSubmit = (e) => {
+    console.log("clicked");
+    e.preventDefault();
+    const boolValue = submitAPI();
+    if (boolValue) {
+      alert("Form submitted");
+      setDate("");
+      setTime("");
+      setPersons("");
+      setOcassion("");
+    }
+  };
 
   return (
     <main className="reservation-container">
@@ -29,7 +70,10 @@ function Reservation() {
         <input
           className="datepicker"
           value={date}
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e) => {
+            setDate(e.target.value);
+            handleDateChange(e.target.value);
+          }}
           type="date"
           id="res-date"
         />
@@ -42,7 +86,7 @@ function Reservation() {
           onChange={(e) => setTime(e.target.value)}
         >
           {availableTimes.map((time, index) => {
-            return <option key={index}>{time.value}</option>;
+            return <option key={index}>{time}</option>;
           })}
         </select>
 
@@ -65,6 +109,7 @@ function Reservation() {
           value={occasion}
           onChange={(e) => setOcassion(e.target.value)}
         >
+          <option>Select occasion</option>
           <option>Birthday</option>
           <option>Anniversary</option>
         </select>
@@ -80,6 +125,7 @@ function Reservation() {
             padding: "12px",
             margin: "32px 0",
           }}
+          onClick={handleSubmit}
         >
           Make Your reservation
         </Button>
