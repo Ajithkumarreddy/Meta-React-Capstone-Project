@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import "./reservation.css";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 function Reservation() {
+  const navigate = useNavigate();
+
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [persons, setPersons] = useState("");
+  const [persons, setPersons] = useState("1");
   const [occasion, setOcassion] = useState("");
+
+  const [btnStatus, setBtnStatus] = useState(false);
 
   const initializeTimes = ["11:00", "12:00", "13:00"];
 
@@ -43,15 +48,15 @@ function Reservation() {
 
   const handleDateChange = (value) => {
     setAvailableTimes(fetchAPI(value));
-    console.log(fetchAPI(value));
   };
 
   const handleSubmit = (e) => {
-    console.log("clicked");
     e.preventDefault();
     const boolValue = submitAPI();
     if (boolValue) {
-      alert("Form submitted");
+      localStorage.setItem("guests", persons);
+      localStorage.setItem("date", date);
+      navigate("/confirmation");
       setDate("");
       setTime("");
       setPersons("");
@@ -66,7 +71,7 @@ function Reservation() {
         <p>Don't miss out, book your table now!</p>
       </div>
       <form className="reservation-form">
-        <label htmlFor="res-date">Choose date</label>
+        <label htmlFor="res-date">Choose date *</label>
         <input
           className="datepicker"
           value={date}
@@ -78,7 +83,7 @@ function Reservation() {
           id="res-date"
         />
 
-        <label htmlFor="res-time">Choose time</label>
+        <label htmlFor="res-time">Choose time *</label>
         <select
           className="timepicker"
           id="res-time "
@@ -117,6 +122,7 @@ function Reservation() {
         <Button
           className="reserveButton"
           variant="contained"
+          disabled={btnStatus}
           style={{
             backgroundColor: "#F4CE14",
             color: "black",

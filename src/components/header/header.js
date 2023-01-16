@@ -11,8 +11,9 @@ function Header() {
       </div>
       <div className="header-nav">
         <div className="header-home">
-          <Link to="/">Home</Link>
-          <Link to="/reservation">Reserve a table</Link>
+          <Link className="header-link" to="/">
+            Home
+          </Link>
         </div>
       </div>
     </header>
